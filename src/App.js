@@ -1,44 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BlogOverview from './BlogOverview'
 import BlogPost from './BlogPost'
 import createBlogObjects from './apicalls'
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
-class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
+const App = () => {
 
-    }
+  const [blogs, setBlogs] = useState("loading")
+
+
+  const loadBlogsinState = async () => {
+    const blogsObject = await createBlogObjects();
+    setBlogs(blogsObject)
   }
 
-  loadBlogsinState = async () => {
-    const blogsobject = await createBlogObjects();
-    this.setState({
-      ...this.state,
-      blogs: blogsobject
-    })
-  }
 
-  componentDidMount() {
-    this.loadBlogsinState();
-  }
+  useEffect(() => {
+    loadBlogsinState();
+  }, [])
 
-  render() {
-    console.log(this.state)
-    return (
-      <div className="App">
-        <Router>
-          <Switch>
-            <Route path="/" exact component={() => this.state.blogs ? <BlogOverview blogs={this.state.blogs} /> : null} />
-            <Route path="/" component={() => this.state.blogs ? <BlogPost blogs={this.state.blogs} /> : null} />
-          </Switch>
-        </Router>
-      </div>
-    )
-  }
+
+
+
+
+  return (
+
+    < div className="App" >
+      <Router>
+        <Switch>
+          <Route path="/" exact component={() => blogs !== 'loading' ? <BlogOverview blogs={blogs} /> : null} />
+          <Route path="/" component={() => blogs ? <BlogPost blogs={blogs} /> : null} />
+        </Switch>
+      </Router>
+    </div >
+  )
+
 }
 
 export default App;

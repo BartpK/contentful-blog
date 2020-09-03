@@ -13,7 +13,7 @@ function BlogPost(props) {
         return (
             <div className="blogcontainer">
                 <div className="blogheaderwrapper">
-                    <img className="blogheaderimage" src={blog.blogMain} />
+                    <img className="blogheaderimage" src={blog.blogMain} alt={blog.blogTitle} />
                     <h1>{blog.blogTitle}</h1>
                     <p>By: {blog.blogAuthor}</p>
                 </div>

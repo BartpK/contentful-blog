@@ -15,9 +15,16 @@ body {
 
 .previewcontainer {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4,1fr);
   gap: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .previewcontainer {
+    
+    grid-template-columns: repeat(2,1fr);
+    
+  }
 }
 
 .blogpreviewimage {
